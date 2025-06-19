@@ -1,0 +1,24 @@
+function Vehicle(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+}
+
+Vehicle.prototype.displayDetails = function () {
+    return this.year + ' ' + this.make + ' ' + this.model;
+};
+
+function Car(make, model, year, doors) {
+    Vehicle.call(this, make, model, year);
+    this.doors = doors;
+}
+
+Car.prototype = Object.create(Vehicle.prototype);
+Car.prototype.constructor = Car;
+
+Car.prototype.displayDetails = function () {
+    return Vehicle.prototype.displayDetails.call(this) + ' with ' + this.doors + ' doors';
+};
+
+const myCar = new Car("Toyota", "Corolla", 2020, 4);
+console.log(myCar.displayDetails());
